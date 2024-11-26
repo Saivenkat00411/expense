@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const BadRequest = require('../errors/BadRequest');
 const userModel=require('../models/userModel');
 const notFound = require('../errors/notFound');
+const bcrypt=require('bcrypt');
 const unAuthenticated = require('../errors/unAuthenticated');
 const jwt = require('jsonwebtoken');
 const loginController=async (req,res)=>{
@@ -11,12 +12,14 @@ const loginController=async (req,res)=>{
     {
         throw new notFound('User Not found');
     }
-    if(user.password!=password)
+    const comparePassword=bcrypt.compare(user.password,password);
+    if(!comparePassword)
     {
         throw new unAuthenticated('enter valid credentials');
     }
     const token=jwt.sign({name:user.name,email:user.email},process.env.SECRETKEY,{expiresIn:process.env.EXPIRESIN})
-    res.status(StatusCodes.OK).json({user,token});
+    // localStorage.setItem('token',token);
+    res.status(StatusCodes.OK).json({user});
 }
 const registerController=async(req,res)=>{
     const {email,password,name}=req.body;
