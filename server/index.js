@@ -3,12 +3,15 @@ require('express-async-errors');
 const express=require('express');
 const mongoose=require('mongoose');
 const connectDB=require('./db/db')
-const router=require('./routes/auth');
+const authRouter=require('./routes/auth');
+const expenseRouter=require('./routes/expenseRoutes');
+
 const customErrorHandler = require('./middlewares/customErrorHandler');
 const app=express();
 
 app.use(express.json())
-app.use('/api/v1/',router);
+app.use('/api/v1/user',authRouter);
+app.use('/api/v1/expense',expenseRouter);
 
 
 app.use('*',(req,res)=>{
