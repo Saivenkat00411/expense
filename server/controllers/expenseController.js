@@ -1,5 +1,5 @@
-const addExpense=()=>{
-
+const addExpense=async(req,res)=>{
+res.send("Expense");
 }
 const editExpense=()=>{
     

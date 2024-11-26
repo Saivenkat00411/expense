@@ -16,7 +16,8 @@ const loginController=async (req,res)=>{
         throw new unAuthenticated('enter valid credentials');
     }
     const token=jwt.sign({name:user.name,email:user.email},process.env.SECRETKEY,{expiresIn:process.env.EXPIRESIN})
-    res.status(StatusCodes.OK).json({user,token});
+    res.cookie('token',token,{expiresIn:process.env.EXPIRESIN});
+    res.status(StatusCodes.OK).json({user});
 }
 const registerController=async(req,res)=>{
     const {email,password,name}=req.body;
