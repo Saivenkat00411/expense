@@ -6,6 +6,7 @@ const connectDB=require('./db/db')
 const authRouter=require('./routes/auth');
 const expenseRouter=require('./routes/expenseRoutes');
 const cookieParser=require('cookie-parser')
+const authenticationMiddleware = require('./middlewares/authMiddleware');
 const customErrorHandler = require('./middlewares/customErrorHandler');
 const app=express();
 
@@ -13,7 +14,7 @@ const app=express();
 app.use(express.json())
 app.use(cookieParser());
 app.use('/api/v1/user',authRouter);
-app.use('/api/v1/expense',expenseRouter);
+app.use('/api/v1/expense',authenticationMiddleware,expenseRouter);
 
 
 app.use('*',(req,res)=>{

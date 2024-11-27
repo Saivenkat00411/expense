@@ -5,6 +5,7 @@ const { StatusCodes } = require("http-status-codes")
 const moment=require('moment')
 const format=require('date-format')
 const BadRequest = require("../errors/BadRequest")
+const notFound = require("../errors/notFound")
 const addExpense=async(req,res)=>{
     const {title,amount,type,category,description,date}=req.body
     let formattedDate=moment(date)
@@ -23,14 +24,40 @@ const addExpense=async(req,res)=>{
     res.status(StatusCodes.CREATED).json(transaction);
 
 }
-const editExpense=()=>{
-    
+const editExpense=async(req,res)=>{
+    const {id}=req.params;
+    const {title,amount,type,category,description,date}=req.body;
+    if(!title||!amount||!date)
+    {
+        throw new BadRequest('Enter all required date');
+    }
+    const updatedExpense=await expenseModel.findOneAndUpdate({_id:id},{title,amount,type,category,description,date})
+    if(!updatedExpense)
+    {
+        throw new BadRequest("Record not updated");
+    }
+    res.status(StatusCodes.OK).json(updatedExpense);
 }
-const getExpense=()=>{
-    
+const getExpense=async(req,res)=>{
+    const {email}=req.user;
+    const user=await userModel.findOne({email});
+    console.log(user);
+    if(!user)
+    {
+        throw new unAuthenticated('User Not LoggedIn');
+    }    
+    const expenses=await expenseModel.find({userId:user._id})
+    res.status(StatusCodes.OK).json(expenses);
 }
-const deleteExpense=()=>{
-    
+const deleteExpense=async(req,res)=>{
+    const {id}=req.params;
+    const expense=await expenseModel.findOne({_id:id});
+    if(!expense)
+    {
+        throw new notFound('expense Not found');
+    }    
+    await expenseModel.findOneAndDelete({_id:id})
+    res.status(StatusCodes.OK).json({msg:'deleted expense'});
 }
 
 module.exports={addExpense,editExpense,getExpense,deleteExpense};
