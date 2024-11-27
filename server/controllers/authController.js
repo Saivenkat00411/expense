@@ -37,5 +37,9 @@ const registerController=async(req,res)=>{
     const user=await userModel.create({email,name,password});
     res.status(StatusCodes.OK).json({user});
 }
+const logOut=async(req,res)=>{
+    res.cookie('token','');
+    res.status(StatusCodes.OK).json({'msg':"loggedOut"});
+}
 
-module.exports={loginController,registerController}
+module.exports={loginController,registerController,logOut}

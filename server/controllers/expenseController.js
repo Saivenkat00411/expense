@@ -15,7 +15,6 @@ const addExpense=async(req,res)=>{
         throw BadRequest('Enter valid date');
     }
     const user=await userModel.findOne({email:req.user.email});
-    console.log(user);
     if(!user)
     {
         throw new unAuthenticated('User Not LoggedIn');
@@ -41,7 +40,6 @@ const editExpense=async(req,res)=>{
 const getExpense=async(req,res)=>{
     const {email}=req.user;
     const user=await userModel.findOne({email});
-    console.log(user);
     if(!user)
     {
         throw new unAuthenticated('User Not LoggedIn');
