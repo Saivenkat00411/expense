@@ -9,17 +9,25 @@ const expenseSchema = mongoose.Schema({
         type:Number,
         required: [true, 'Enter amount'],
     },
-    type:{
+    expensetype:{
         type:String,
-        enum:[all,expense,credit],
-        default:[expense]
+        enum:["expense","credit"],
+        default:"expense"
+    },
+    description:{
+        type:String
     },
     category:{
         type:String,
-        enum:[food,utilities,other],
-        default:[food]
+        enum:["food","utilities","other"],
+        default:"food"
+    },
+    date:{
+        type:String,
+        required:true
     },
     userId:{
+        type:mongoose.Schema.Types.ObjectId,
         ref:userModel
     }    
 },{timeStamps:true});

@@ -19,6 +19,7 @@ const loginController=async (req,res)=>{
     }
     const token=jwt.sign({name:user.name,email:user.email},process.env.SECRETKEY,{expiresIn:process.env.EXPIRESIN})
     // localStorage.setItem('token',token);
+    res.cookie('token',token,{expiresIn:process.env.EXPIRESIN});
     res.status(StatusCodes.OK).json({user});
 }
 const registerController=async(req,res)=>{
