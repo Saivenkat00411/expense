@@ -1,11 +1,11 @@
 import './App.css';
-import Login from './pages/Login';
+import Login, { action as loginAction } from './pages/Login';
 import {  createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Register, { action as registerAction } from './pages/Register';
 import background from './public/img/background.jpg'
 import Dashboard from './pages/Dashboard';
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
+  { path: "/", element: <Login />,action:loginAction },
   { path: "register", element: <Register />,action:registerAction },
   { path: "dashboard", element: <Dashboard />}
 ]);

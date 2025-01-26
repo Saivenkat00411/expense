@@ -12,7 +12,7 @@ const loginController=async (req,res)=>{
     {
         throw new notFound('User Not found');
     }
-    const comparePassword=bcrypt.compare(user.password,password);
+    const comparePassword=await bcrypt.compare(password,user.password);
     if(!comparePassword)
     {
         throw new unAuthenticated('enter valid credentials');

@@ -4,8 +4,8 @@ import axios from 'axios';
 export async function action({ request }) {
   const data = await request.formData();
   const formSubmission = {
-    email: data.get('emailRegister'),
-    password: data.get('inputPasswordRegister'),
+    email: data.get('email'),
+    password: data.get('password'),
     name:data.get('name')
   };
   try {
@@ -35,7 +35,7 @@ function Register() {
             <input
               type="email"
               className="form-control form-control-sm"
-              name="emailRegister"
+              name="email"
               id="emailRegister"
             />
           </div>
@@ -44,7 +44,7 @@ function Register() {
             <input
               type="password"
               className="form-control form-control-sm"
-              name="inputPasswordRegister"
+              name="password"
               id="inputPasswordRegister"
             />
           </div>
