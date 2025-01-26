@@ -1,18 +1,19 @@
 import './App.css';
 import Login from './pages/Login';
-import {BrowserRouter, Routes,Route} from 'react-router-dom'
-import Register from './pages/Register';
+import {  createBrowserRouter, RouterProvider} from 'react-router-dom'
+import Register, { action as registerAction } from './pages/Register';
 import background from './public/img/background.jpg'
+import Dashboard from './pages/Dashboard';
+const router = createBrowserRouter([
+  { path: "/", element: <Login /> },
+  { path: "register", element: <Register />,action:registerAction },
+  { path: "dashboard", element: <Dashboard />}
+]);
 function App() {
   return (
     <div className="App" style={{backgroundImage:`url(${background})`, height: "100vh"
       }}>
-      <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='register' element={<Register/>}/>
-      </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router}/>
     </div>
   );
 }

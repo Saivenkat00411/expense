@@ -11,7 +11,7 @@ function Login() {
         <form className="p-4 border rounded" style={{maxWidth: '300px', width: '100%'}}>
           <h3 className="text-center mb-4 text-light">Login</h3>
           <div className="mb-3">
-            <label for="email" className="form-label text-light">Email address</label>
+            <label htmlFor="email" className="form-label text-light">Email address</label>
             <input
               type="email"
               className="form-control form-control-sm"
@@ -19,7 +19,7 @@ function Login() {
             />
           </div>
           <div className="mb-3">
-            <label for="inputPassword" className="form-label text-light">Password</label>
+            <label htmlFor="inputPassword" className="form-label text-light">Password</label>
             <input
               type="password"
               className="form-control form-control-sm"
