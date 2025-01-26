@@ -1,11 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './pages/Login';
 import {BrowserRouter, Routes,Route} from 'react-router-dom'
 import Register from './pages/Register';
+import background from './public/img/background.jpg'
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{backgroundImage:`url(${background})`, height: "100vh"
+      }}>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}/>
