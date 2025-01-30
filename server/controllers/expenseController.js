@@ -9,7 +9,7 @@ const notFound = require("../errors/notFound")
 const addExpense=async(req,res)=>{
     const {title,amount,type,category,description,date}=req.body
     let formattedDate=moment(date)
-    formattedDate=formattedDate.format('YYYY-MM-DD')
+    formattedDate=formattedDate.format('MMM Do YY')
     if(!formattedDate)
     {
         throw BadRequest('Enter valid date');
@@ -45,7 +45,7 @@ const getExpense=async(req,res)=>{
         throw new unAuthenticated('User Not LoggedIn');
     }    
     const expenses=await expenseModel.find({userId:user._id})
-    res.status(StatusCodes.OK).json(expenses);
+    res.status(StatusCodes.OK).json({expenses,userId:user._id});
 }
 const deleteExpense=async(req,res)=>{
     const {id}=req.params;
